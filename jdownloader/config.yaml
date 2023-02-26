@@ -5,7 +5,7 @@ arch:
 - arm32v6
 - arm64v8
 - i386
-codenotary: lamauny@chez.com
+codenotary: lamauny@users.noreply.github.com
 description: jDownloader server
 hassio_api: true
 host_network: true #
