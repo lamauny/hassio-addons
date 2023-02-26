@@ -29,5 +29,5 @@ ports_description:
   3129/tcp: MyJDownloader communication interface
 slug: jdownloader
 startup: services
-url: https://github.com/lamauny/hassio-addon-jdownloader
+url: https://lamauny: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@github.com/lamauny/hassio-addon-jdownloader
 version: 0.1.0
