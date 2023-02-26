@@ -26,9 +26,6 @@ Example add-on configuration:
 
 ```
  {
-    "ssl": true,
-    "certfile": "fullchain.pem",
-    "keyfile": "privkey.pem",
     "user": "user@email.com",
     "passwd": "password",
     "config": "Jdownloader/cfg",
@@ -36,18 +33,6 @@ Example add-on configuration:
     "downloads": "Jdownloader/Downloads",
  }
 ```
-
-### Option: `ssl`
-
-Indicates if the add-on UI will be servd from port 80 or port 443 (using the provided certificates).
-
-### Option: `certfile`
-
-The filename of your SSL Certificate in the `ssl` folder.
-
-### Option: `certfile`
-
-The filename of your Private Key File in the `ssl` folder.
 
 ### Option: `user`
 
