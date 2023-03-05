@@ -15,8 +15,8 @@ map:
   - share:rw
   - config:rw
 environment:
-  PUID: 0
-  GUID: 0
+  PUID: "0"
+  PGID: "0"
 ports:
   3129/tcp: 3129
 ports_description:
