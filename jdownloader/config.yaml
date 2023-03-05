@@ -14,9 +14,8 @@ map:
   - media:rw
   - share:rw
   - config:rw
-environment:
-  PUID: "0"
-  PGID: "0"
+privileged:
+  - SYS_ADMIN
 ports:
   3129/tcp: 3129
 ports_description:
