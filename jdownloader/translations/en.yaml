@@ -9,6 +9,24 @@ configuration:
   password:
     name: MyJDownloader Password
     description: The password to access MyJDownloader.
+  cifsdomain:
+    name: cifsdomain
+    description: Allow setting the domain for the smb share
+  cifsusername:
+    name: cifsusername
+    description: Your username to access your SMB share, same for all smb shares
+  cifspassword:
+    name: cifspassword
+    description: Your password to access your SMB share, same for all smb shares
+  localdisks:
+    name: localdisks
+    description: Physical name of the partition (ex. sda1) or the share (ex. SharedFiles) to mount separated by commas (ex. sda1,sdb1,MYNAS)
+  networkdisks:
+    name: networkdisks
+    description: list of smb servers to mount, separated by commas (//xxx.xx.xx.xx/share)
+  smbv1:
+    name: smbv1
+    description: samba v1.0 protocol
   log_level:
     name: Log level
     description: Sets the verbosity of log output.
