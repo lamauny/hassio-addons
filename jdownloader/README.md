@@ -18,7 +18,7 @@ This addon is based on the [docker image](https://github.com/jlesage/docker-jdow
 
 ---
 
-[![JDownloader 2 logo](jdownloader/logo.png)](http://jdownloader.org)
+[![JDownloader 2 logo](logo.png)](http://jdownloader.org)
 
 JDownloader 2 is a free, open-source download management tool with a huge
 community of developers that makes downloading as easy and fast as it should be.
