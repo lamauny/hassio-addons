@@ -3,7 +3,7 @@ name: JDownloader
 version: dev
 slug: jdownloader
 description: Run JDownloader in Home Assistant
-url: https://github.com/lamauny/hassio-addon-jdownloader
+url: https://github.com/lamauny/hassio-addons
 init: false
 arch:
   - aarch64
