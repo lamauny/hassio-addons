@@ -19,8 +19,8 @@ log_debug() {
 
 get_jd_pid() {
     PID=UNSET
-    if [ -f /config/JD2.lock ]; then
-        FUSER_STR="$(fuser /config/JD2.lock 2>/dev/null)"
+    if [ -f /config/jd/JD2.lock ]; then
+        FUSER_STR="$(fuser /config/jd/JD2.lock 2>/dev/null)"
         if [ $? -eq 0 ]; then
             echo "$FUSER_STR" | awk '{print $1}'
             return
@@ -39,15 +39,15 @@ start_jd() {
         /usr/bin/java \
             -XX:-UsePerfData \
             -Djava.awt.headless=true \
-            -jar /config/JDownloader.jar 2>&1 &
-#            -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
+            -jar /config/jd/JDownloader.jar 2>&1 &
+#            -jar /config/jd/JDownloader.jar >/config/jd/logs/output.log 2>&1 &
     else
         /usr/bin/java \
             -XX:-UsePerfData \
             -Dawt.useSystemAAFontSettings=gasp \
             -Djava.awt.headless=false \
-            -jar /config/JDownloader.jar 2>&1 &
-#            -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
+            -jar /config/jd/JDownloader.jar 2>&1 &
+#            -jar /config/jd/JDownloader.jar >/config/jd/logs/output.log 2>&1 &
     fi
 }
 
