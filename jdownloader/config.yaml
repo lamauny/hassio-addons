@@ -1,6 +1,6 @@
 ---
 name: JDownloader
-version: 1.1-alpha2
+version: 1.1-alpha3
 slug: jdownloader
 description: Run JDownloader in Home Assistant
 url: https://github.com/lamauny/hassio-addons
@@ -16,6 +16,7 @@ map:
   - config:rw
 privileged:
   - SYS_ADMIN
+  - DAC_READ_SEARCH
 ports:
   3129/tcp: 3129
 ports_description:
