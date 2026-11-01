@@ -25,8 +25,7 @@ RUN \
     libjpeg-turbo-dev \
     openssl-dev \
     python3-dev \
-    zlib-dev
-RUN \
+    zlib-dev && \
   echo "**** install packages ****" && \
   apk add --no-cache \
     ffmpeg \
@@ -34,8 +33,7 @@ RUN \
     p7zip \
     python3 \
     sqlite \
-    tesseract-ocr
-RUN \
+    tesseract-ocr && \
   echo "**** install pyload ****" && \
   if [ -z ${PYLOAD_VERSION+x} ]; then \
     PYLOAD_VERSION=$(curl -sL  https://pypi.python.org/pypi/pyload-ng/json |jq -r '. | .info.version'); \
@@ -45,8 +43,7 @@ RUN \
     pip \
     wheel && \
   pip3 install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.17/ \
-    pyload-ng[all]=="${PYLOAD_VERSION}"
-RUN \
+    pyload-ng[all]=="${PYLOAD_VERSION}" && \
   echo "**** cleanup ****" && \
   apk del --purge \
     build-dependencies && \

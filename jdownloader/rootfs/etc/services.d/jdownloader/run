@@ -37,17 +37,15 @@ is_jd_running() {
 start_jd() {
     if is-bool-val-true "${JDOWNLOADER_HEADLESS:-0}"; then
         /usr/bin/java \
-            -XX:-UsePerfData \
+            -XX:-UsePerfData -XX:MaxRAMPercentage=10.0 \
             -Djava.awt.headless=true \
             -jar /config/jd/JDownloader.jar 2>&1 &
-#            -jar /config/jd/JDownloader.jar >/config/jd/logs/output.log 2>&1 &
     else
         /usr/bin/java \
-            -XX:-UsePerfData \
+            -XX:-UsePerfData -XX:MaxRAMPercentage=10.0 \
             -Dawt.useSystemAAFontSettings=gasp \
             -Djava.awt.headless=false \
             -jar /config/jd/JDownloader.jar 2>&1 &
-#            -jar /config/jd/JDownloader.jar >/config/jd/logs/output.log 2>&1 &
     fi
 }
 
