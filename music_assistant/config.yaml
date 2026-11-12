@@ -1,10 +1,11 @@
 name: Music Assistant (patched)
-version: 2.10.9a
+version: 1.00
 slug: music_assistant
-description:
+description: |
   The Music Assistant server is a free, opensource Media library manager
   that connects to your streaming services and a wide range of connected speakers.
-  >>>> Patched Deezer version <<<<
+  ** Patched version **
+  - removed Deezer free account limitation
 url: https://music-assistant.io
 arch:
   - amd64
