@@ -8,6 +8,7 @@ url: https://kodi.tv/
 arch:
   - amd64
 image: docker.io/matthuisman/kodi-headless
+init: false
 tmpfs: true
 stage: stable
 legacy: true
@@ -24,7 +25,7 @@ map:
 options:
   S6_VERBOSITY: 1
   KODI_DELAY: 0
-  MYSQL_HOST: core_mariadb
+  MYSQL_HOST: core-mariadb
   MYSQL_USER: kodi
   MYSQL_PASSWORD: kodi
   TZ: Europe/Paris
