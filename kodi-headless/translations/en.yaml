@@ -1,0 +1,19 @@
+configuration:
+  S6_VERBOSITY:
+    name: Log Level
+    description: "Set the (global) log level"
+  KODI_DELAY:
+    name: Start Delay
+    description: "Wait for delay before starting kodi"
+  MYSQL_HOST:
+    name: MySQL Host
+    description: "Host of mysql database"
+  MYSQL_USER:
+    name: MySQL User
+    description: "User to connect mysql database"
+  MYSQL_PASSWORD:
+    name: MySQL Password
+    description: "Password to connecte of mysql database"
+  TZ:
+    name: Timezone
+    description: "Local timezone"

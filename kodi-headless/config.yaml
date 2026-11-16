@@ -1,0 +1,41 @@
+name: Kodi Headless
+version: Omega-21.3
+slug: kodi_headless
+description: A headless install of kodi controled by a web interface.
+  Commonly used with MySQL Kodi setup to allow library updates via web interface.
+  Using docker image from https://hub.docker.com/r/matthuisman/kodi-headless
+url: https://kodi.tv/
+arch:
+  - amd64
+image: docker.io/matthuisman/kodi-headless
+tmpfs: true
+stage: stable
+legacy: true
+host_network: true
+ingress: true
+ingress_port: 8080
+panel_icon: mdi:kodi
+panel_title: Kodi
+panel_admin: false
+map:
+  - media:rw
+  - share:rw
+  - config:rw
+options:
+  S6_VERBOSITY: 1
+  KODI_DELAY: 0
+  MYSQL_HOST: core_mariadb
+  MYSQL_USER: kodi
+  MYSQL_PASSWORD: kodi
+  TZ: Europe/Paris
+schema:
+  S6_VERBOSITY: int(0,5)
+  KODI_DELAY: int
+  MYSQL_HOST: str
+  MYSQL_USER: str
+  MYSQL_PASSWORD: password
+  TZ: str
+ports:
+  8080/tcp: 8080
+  9090/tcp: 9090
+  9777/udp: 9777
