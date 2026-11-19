@@ -1,9 +1,9 @@
 name: Kodi Headless
 version: Omega-21.3
 slug: kodi_headless
-description: A headless install of kodi with a web interface.<br>
-  Commonly used with MySQL Kodi setup to allow library updates via web interface.<br>
-  Image from https://hub.docker.com/r/matthuisman/kodi-headless
+description: A headless install of kodi with a web interface.
+  Commonly used with MySQL Kodi setup to allow library updates via web interface.
+  Image from Matt Huisman (matthuisman).
 url: https://github.com/matthuisman/docker-kodi-headless
 arch:
   - amd64
@@ -23,6 +23,8 @@ map:
     read_only: false
     path: /config/.kodi
   - type: media
+backup_exclude:
+  - Thumbnails/*
 options:
   S6_VERBOSITY: 2
   KODI_DELAY: 0

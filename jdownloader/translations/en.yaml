@@ -1,32 +1,41 @@
 ---
 configuration:
-  device_name:
+  MYJDOWNLOADER_DEVICE_NAME:
     name: Device name
     description: The device name to identify instance.
-  email:
+  MYJDOWNLOADER_EMAIL:
     name: MyJDownloader E-mail
     description: The email to access MyJDownloader.
-  password:
+  MYJDOWNLOADER_PASSWORD:
     name: MyJDownloader Password
     description: The password to access MyJDownloader.
-  cifsdomain:
-    name: cifsdomain
-    description: Allow setting the domain for the smb share
-  cifsusername:
-    name: cifsusername
-    description: Your username to access your SMB share, same for all smb shares
-  cifspassword:
-    name: cifspassword
-    description: Your password to access your SMB share, same for all smb shares
-  localdisks:
-    name: localdisks
-    description: Physical name of the partition (ex. sda1) or the share (ex. SharedFiles) to mount separated by commas (ex. sda1,sdb1,MYNAS)
-  networkdisks:
-    name: networkdisks
-    description: list of smb servers to mount, separated by commas (//xxx.xx.xx.xx/share)
-  smbv1:
-    name: smbv1
-    description: samba v1.0 protocol
-  log_level:
-    name: Log level
-    description: Sets the verbosity of log output.
+  INSTALL_PACKAGES:
+    name: Install Packages
+    description: Space-separated list of packages to install during container startup. List of available packages can be found at https://pkgs.alpinelinux.org.
+  JDOWNLOADER_HEADLESS:
+    name: Headless Mode
+    description: When set to 1, JDownloader is running in headless mode, meaning that no GUI is available. In this mode, MyJDownloader should be used to remote control JDownloader.
+  JDOWNLOADER_MAX_MEM:
+    name: Max RAM Usage
+    description: Maximum amount of memory JDownloader is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: G, M or K.
+  DISPLAY_WIDTH:
+    name: Display Width
+    description: Width (in pixels) of the application's window.
+  DISPLAY_HEIGHT:
+    name: Display Height
+    description: Height (in pixels) of the application's window.
+  DARK_MODE:
+    name: Dark Mode
+    description: When set to 1, enables dark mode for the application. See Dark Mode](#dark-mode) for details.
+  WEB_FILE_MANAGER:
+    name: Web File Manager
+    description: When set to 1, enables the web file manager, allowing interaction with files inside the container through the web browser
+  WEB_AUTHENTICATION:
+    name: Web Authentication
+    description: When set to 1, protects the application's GUI with a login page when accessed via a web browser. Access is granted only with valid credentials. Requires the container to be configured with secure web access (HTTPS)
+  WEB_AUTHENTICATION_DEFAULT_USERNAME:
+    name: Web Auth User
+    description: Optional username for web authentication. Provides a quick and easy way to configure credentials for a single user
+  WEB_AUTHENTICATION_DEFAULT_PASSWORD:
+    name: Web Auth Password
+    description: Optional password for web authentication. Provides a quick and easy way to configure credentials for a single user
