@@ -27,7 +27,7 @@ map:
     read_only: false
     path: /output
 backup_exclude:
-  - *.jar
+  - "*.jar"
   - logs/*
   - libs/*
   - jd/*
