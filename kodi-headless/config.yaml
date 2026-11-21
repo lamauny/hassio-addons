@@ -7,7 +7,7 @@ description: A headless install of kodi with a web interface.
 url: https://github.com/matthuisman/docker-kodi-headless
 arch:
   - amd64
-image: ghcr.io/matthuisman/kodi-headless
+image: docker.io/matthuisman/kodi-headless
 init: false
 tmpfs: true
 stage: stable

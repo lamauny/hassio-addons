@@ -8,21 +8,34 @@ on:
 env:
   JD_UPSTREAM_REPO: "jlesage/docker-jdownloader-2"
   JD_IMAGE_NAME: "ghcr.io/jlesage/jdownloader-2"
-  KODI_UPSTREAM_REPO: "matthuisman/docker-kodi-headless"
-  KODI_IMAGE_NAME: "ghcr.io/matthuisman/kodi-headless"
+  KODI_DOCKERHUB_REPO: "matthuisman/kodi-headless"
+  KODI_ALLOW_PRERELEASE: "false" # "true" pour suivre aussi les bêtas/RC (ex. Piers-22.0rc2)
 
 jobs:
   update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: [JDownloader] Check latest release and update
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: "[JDownloader] Check latest release and update"
         run: |
           # Récupère le tag de la dernière release externe
-          LATEST_TAG=$(curl -s "https://github.com{{ env.JD_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
+          LATEST_TAG=$(curl -s "https://api.github.com/repos/${{ env.JD_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
+
+          if [ -z "$LATEST_TAG" ] || [ "$LATEST_TAG" = "null" ]; then
+            echo "::error::Impossible de récupérer la dernière release de ${{ env.JD_UPSTREAM_REPO }}"
+            exit 1
+          fi
 
           # Vérifie si cette version est déjà dans config.yaml
           if grep -q "version: \"$LATEST_TAG\"" jdownloader/config.yaml; then
@@ -34,16 +47,35 @@ jobs:
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" jdownloader/config.yaml
 
           # Commit et Push
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@://github.com"
-          git add config.yaml
+          git add jdownloader/config.yaml
           git commit -m "Update jdownloader image to $LATEST_TAG"
           git push
 
-      - name: [Kodi] Check latest release and update
+      - name: "[Kodi] Check latest release and update"
         run: |
           # Récupère le tag de la dernière release externe
-          LATEST_TAG=$(curl -s "https://github.com{{ env.KODI_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
+          # Tags Docker Hub du type "Omega-21.3" ou "Piers-22.0rc2".
+          # On ignore les tags d'architecture (-amd64, -arm64...) et les tags
+          # "flottants" sans numéro (Omega, Piers, latest...).
+          if [ "${{ env.KODI_ALLOW_PRERELEASE }}" = "true" ]; then
+            TAG_REGEX='^[A-Za-z]+-[0-9]+(\.[0-9]+)+((a|b|rc)[0-9]+)?$'
+          else
+            TAG_REGEX='^[A-Za-z]+-[0-9]+(\.[0-9]+)+$'
+          fi
+
+          LATEST_TAG=$(curl -fsSL \
+            "https://hub.docker.com/v2/repositories/${{ env.KODI_DOCKERHUB_REPO }}/tags?page_size=100&ordering=last_updated" \
+            | jq -r --arg re "$TAG_REGEX" '
+                .results
+                | map(select(.name | test($re)))
+                | sort_by(.last_updated)
+                | last
+                | .name // empty')
+
+          if [ -z "$LATEST_TAG" ] ; then
+            echo "::error::Impossible de récupérer la dernière release de ${{ env.KODI_DOCKERHUB_REPO }}"
+            exit 1
+          fi
 
           # Vérifie si cette version est déjà dans config.yaml
           if grep -q "version: \"$LATEST_TAG\"" kodi-headless/config.yaml; then
@@ -55,8 +87,6 @@ jobs:
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" kodi-headless/config.yaml
 
           # Commit et Push
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@://github.com"
-          git add config.yaml
+          git add kodi-headless/config.yaml
           git commit -m "Update kodi-headless image to $LATEST_TAG"
           git push
