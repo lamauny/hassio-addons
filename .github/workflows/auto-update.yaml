@@ -30,7 +30,10 @@ jobs:
       - name: "[JDownloader] Check latest release and update"
         run: |
           # Récupère le tag de la dernière release externe
-          LATEST_TAG=$(curl -s "https://api.github.com/repos/${{ env.JD_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
+          LATEST_TAG=$(curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ env.JD_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
 
           if [ -z "$LATEST_TAG" ] || [ "$LATEST_TAG" = "null" ]; then
             echo "::error::Impossible de récupérer la dernière release de ${{ env.JD_UPSTREAM_REPO }}"
