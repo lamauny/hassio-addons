@@ -9,15 +9,6 @@ configuration:
   MYJDOWNLOADER_PASSWORD:
     name: MyJDownloader Password
     description: The password to access MyJDownloader.
-  INSTALL_PACKAGES:
-    name: Install Packages
-    description: Space-separated list of packages to install during container startup. List of available packages can be found at https://pkgs.alpinelinux.org.
-  JDOWNLOADER_HEADLESS:
-    name: Headless Mode
-    description: When set to 1, JDownloader is running in headless mode, meaning that no GUI is available. In this mode, MyJDownloader should be used to remote control JDownloader.
-  JDOWNLOADER_MAX_MEM:
-    name: Max RAM Usage
-    description: Maximum amount of memory JDownloader is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: G, M or K.
   DISPLAY_WIDTH:
     name: Display Width
     description: Width (in pixels) of the application's window.
@@ -27,9 +18,6 @@ configuration:
   DARK_MODE:
     name: Dark Mode
     description: When set to 1, enables dark mode for the application. See Dark Mode](#dark-mode) for details.
-  WEB_FILE_MANAGER:
-    name: Web File Manager
-    description: When set to 1, enables the web file manager, allowing interaction with files inside the container through the web browser
   WEB_AUTHENTICATION:
     name: Web Authentication
     description: When set to 1, protects the application's GUI with a login page when accessed via a web browser. Access is granted only with valid credentials. Requires the container to be configured with secure web access (HTTPS)
