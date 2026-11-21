@@ -1,0 +1,62 @@
+name: Check Upstream Release
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Vérifie toutes les heures
+  workflow_dispatch: # Permet de lancer manuellement
+
+env:
+  JD_UPSTREAM_REPO: "jlesage/docker-jdownloader-2"
+  JD_IMAGE_NAME: "ghcr.io/jlesage/jdownloader-2"
+  KODI_UPSTREAM_REPO: "matthuisman/docker-kodi-headless"
+  KODI_IMAGE_NAME: "ghcr.io/matthuisman/kodi-headless"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: [JDownloader] Check latest release and update
+        run: |
+          # Récupère le tag de la dernière release externe
+          LATEST_TAG=$(curl -s "https://github.com{{ env.JD_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
+
+          # Vérifie si cette version est déjà dans config.yaml
+          if grep -q "version: \"$LATEST_TAG\"" jdownloader/config.yaml; then
+            echo "Déjà à jour ($LATEST_TAG)"
+            exit 0
+          fi
+
+          # Met à jour config.yaml
+          sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" jdownloader/config.yaml
+
+          # Commit et Push
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@://github.com"
+          git add config.yaml
+          git commit -m "Update jdownloader image to $LATEST_TAG"
+          git push
+
+      - name: [Kodi] Check latest release and update
+        run: |
+          # Récupère le tag de la dernière release externe
+          LATEST_TAG=$(curl -s "https://github.com{{ env.KODI_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
+
+          # Vérifie si cette version est déjà dans config.yaml
+          if grep -q "version: \"$LATEST_TAG\"" kodi-headless/config.yaml; then
+            echo "Déjà à jour ($LATEST_TAG)"
+            exit 0
+          fi
+
+          # Met à jour config.yaml
+          sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" kodi-headless/config.yaml
+
+          # Commit et Push
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@://github.com"
+          git add config.yaml
+          git commit -m "Update kodi-headless image to $LATEST_TAG"
+          git push
