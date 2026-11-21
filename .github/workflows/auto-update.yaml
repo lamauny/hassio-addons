@@ -49,10 +49,9 @@ jobs:
           # Met à jour config.yaml
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" jdownloader/config.yaml
 
-          # Commit et Push
+          # Commit
           git add jdownloader/config.yaml
           git commit -m "Update jdownloader image to $LATEST_TAG"
-          git push
 
       - name: "[Kodi] Check latest release and update"
         run: |
@@ -89,7 +88,11 @@ jobs:
           # Met à jour config.yaml
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" kodi-headless/config.yaml
 
-          # Commit et Push
+          # Commit
           git add kodi-headless/config.yaml
           git commit -m "Update kodi-headless image to $LATEST_TAG"
+
+      - name: "Push commits, if any"
+        run: |
+          # Push
           git push
