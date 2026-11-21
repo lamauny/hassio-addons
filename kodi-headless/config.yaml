@@ -1,5 +1,5 @@
 name: Kodi Headless
-version: Omega-21.3
+version: "Omega-21.3"
 slug: kodi_headless
 description: A headless install of kodi with a web interface.
   Commonly used with MySQL Kodi setup to allow library updates via web interface.
