@@ -7,7 +7,7 @@ COPY rootfs/ /
 
 # move providers
 RUN cd / && \
-    mv -rf /providers $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/music_assistant/
+    mv -rf /providers "$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"/music_assistant/
 
 # Labels
 LABEL \
