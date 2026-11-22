@@ -10,7 +10,6 @@ arch:
 image: ghcr.io/jlesage/jdownloader-2
 init: false
 tmpfs: true
-stage: stable
 legacy: true
 host_network: true
 ingress: true

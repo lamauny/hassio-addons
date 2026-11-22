@@ -1,11 +1,16 @@
-FROM ghcr.io/music-assistant/server:latest
-
-RUN apt-get update && apt-get install patch && \
-    rm -rf /var/lib/apt/lists/*
+ARG BUILD_ARCH
+ARG BUILD_VERSION=latest
+FROM ghcr.io/music-assistant/server:${BUILD_VERSION}
 
 # Add files.
 COPY rootfs/ /
 
-# Patch !
-RUN cd / && \
-    for p in /patches/*.patch; do patch -p0 < "$p"; done
+# move providers
+RUN SITE="$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" && \
+    cp -a /providers/. $SITE/music_assistant/providers/ && \
+    rm -rf /providers
+
+# Labels
+LABEL \
+    io.hass.arch="${BUILD_ARCH}" \
+    io.hass.version=${BUILD_VERSION}
