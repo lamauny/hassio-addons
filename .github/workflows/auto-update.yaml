@@ -8,6 +8,7 @@ on:
 env:
   JD_UPSTREAM_REPO: "jlesage/docker-jdownloader-2"
   MA_UPSTREAM_REPO: "music-assistant/server"
+  MA_CHANGELOG_URL: "https://raw.githubusercontent.com/music-assistant/home-assistant-addon/main/music_assistant/CHANGELOG.md"
   PYLOAD_UPSTREAM_REPO: "linuxserver/docker-pyload-ng"
   KODI_DOCKERHUB_REPO: "matthuisman/kodi-headless"
   KODI_ALLOW_PRERELEASE: "false" # "true" pour suivre aussi les bêtas/RC (ex. Piers-22.0rc2)
@@ -23,8 +24,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure git
+      - name: Setup
         run: |
+          pip install --quiet pyyaml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -51,9 +53,12 @@ jobs:
           # Met à jour config.yaml
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" jdownloader/config.yaml
 
+          # Changelog reconstruit depuis appdefs.yml (20 dernières versions)
+          python3 .github/scripts/changelog.py jdownloader jdownloader/CHANGELOG.md 20
+
           # Commit
-          git add jdownloader/config.yaml
-          git commit -m "Update jdownloader image to $LATEST_TAG"
+          git add jdownloader/
+          git commit -m "Update jdownloader to $LATEST_TAG"
 
       - name: "[Music Assistant] Check latest release and update"
         run: |
@@ -78,8 +83,11 @@ jobs:
           # Met à jour config.yaml
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" music_assistant/config.yaml
 
+          # Récupère le changelog officiel
+          curl -o music_assistant/CHANGELOG.md ${{ env.MA_CHANGELOG_URL }}
+
           # Commit
-          git add music_assistant/config.yaml
+          git add music_assistant/
           git commit -m "Update music-assistant image to $LATEST_TAG"
 
       - name: "[Kodi] Check latest release and update"
@@ -118,8 +126,13 @@ jobs:
           # Met à jour config.yaml
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" kodi-headless/config.yaml
 
+          # Met à jour changelog à partir des informations de la release
+          KODI_TAG="v${LATEST_TAG#*-}-${LATEST_TAG%%-*}"
+          python3 .github/scripts/changelog.py release \
+            "${{ env.KODI_UPSTREAM_REPO }}" "$KODI_TAG" "$LATEST_TAG" kodi-headless/CHANGELOG.md
+
           # Commit
-          git add kodi-headless/config.yaml
+          git add kodi-headless/
           git commit -m "Update kodi-headless image to $LATEST_TAG"
 
       - name: "[pyLoad] Check latest release and update"
@@ -136,14 +149,20 @@ jobs:
           fi
           echo "Dernière release : $LATEST_TAG"
 
+          # Vérifie si cette version est déjà dans config.yaml
           if grep -q "version: \"$LATEST_TAG\"" pyload/config.yaml; then
             echo "Déjà à jour ($LATEST_TAG)"
             exit 0
           fi
 
+          # Met à jour config.yaml
           sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" pyload/config.yaml
 
-          git add pyload/config.yaml
+          # Met à jour changelog à partir des informations de la release
+          python3 .github/scripts/changelog.py release \
+            "${{ env.PYLOAD_UPSTREAM_REPO }}" "$LATEST_TAG" "$LATEST_TAG" pyload-ng/CHANGELOG.md
+
+          git add pyload/
           git commit -m "Update pyload image to $LATEST_TAG"
 
       - name: "Push commits, if any"
