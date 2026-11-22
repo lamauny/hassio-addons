@@ -11,6 +11,10 @@ on:
     branches:
       - main
   workflow_dispatch: # Permet de lancer manuellement
+  workflow_run:
+    workflows: ["Auto Update"]
+    types:
+      - completed
 
 permissions:
   contents: read

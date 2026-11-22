@@ -1,4 +1,4 @@
-name: Check Upstream Release
+name: Auto Update
 
 on:
   schedule:
