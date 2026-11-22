@@ -1,7 +1,7 @@
-name: Music Assistant (patched)
+name: Music Assistant
 version: 1.00
 slug: music_assistant
-description: Patched version of Music Assistant server.
+description: Custom version of Music Assistant server.
 url: https://music-assistant.io
 arch:
   - amd64

@@ -1,0 +1,21 @@
+# Pre-commit configuration for hassio-addons
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+        files: '\.ya?ml$'
+      - id: check-json
+        files: '\.json$'
+      - id: end-of-file-fixer
+        files: '\.md$'
+      - id: trailing-whitespace
+        files: '\.md$'
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        args: ["--fix"]
+        files: '\.md$'

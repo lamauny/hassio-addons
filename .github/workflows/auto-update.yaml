@@ -7,7 +7,7 @@ on:
 
 env:
   JD_UPSTREAM_REPO: "jlesage/docker-jdownloader-2"
-  JD_IMAGE_NAME: "ghcr.io/jlesage/jdownloader-2"
+  MA_UPSTREAM_REPO: "music-assistant/server"
   KODI_DOCKERHUB_REPO: "matthuisman/kodi-headless"
   KODI_ALLOW_PRERELEASE: "false" # "true" pour suivre aussi les bêtas/RC (ex. Piers-22.0rc2)
 
@@ -52,6 +52,32 @@ jobs:
           # Commit
           git add jdownloader/config.yaml
           git commit -m "Update jdownloader image to $LATEST_TAG"
+
+      - name: "[Music Assistant] Check latest release and update"
+        run: |
+          # Récupère le tag de la dernière release externe
+          LATEST_TAG=$(curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ env.MA_UPSTREAM_REPO }}/releases/latest" | jq -r '.tag_name')
+
+          if [ -z "$LATEST_TAG" ] || [ "$LATEST_TAG" = "null" ]; then
+            echo "::error::Impossible de récupérer la dernière release de ${{ env.MA_UPSTREAM_REPO }}"
+            exit 1
+          fi
+
+          # Vérifie si cette version est déjà dans config.yaml
+          if grep -q "version: \"$LATEST_TAG\"" music_assistant/config.yaml; then
+            echo "Déjà à jour ($LATEST_TAG)"
+            exit 0
+          fi
+
+          # Met à jour config.yaml
+          sed -i "s/^version:.*/version: \"$LATEST_TAG\"/" music_assistant/config.yaml
+
+          # Commit
+          git add music_assistant/config.yaml
+          git commit -m "Update music-assistant image to $LATEST_TAG"
 
       - name: "[Kodi] Check latest release and update"
         run: |
