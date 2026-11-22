@@ -1,6 +1,6 @@
 # Music Assistant App
 
-The official Music Assistant App for Home Assistant.
+Lamauny's custom version 😉 of Music Assistant App for Home Assistant.
 
 ## About Music Assistant
 

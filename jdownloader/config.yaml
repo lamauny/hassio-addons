@@ -7,6 +7,7 @@ description: Run JDownloader in Home Assistant.
 url: https://github.com/lamauny/hassio-addons
 arch:
   - amd64
+  - aarch64
 image: ghcr.io/jlesage/jdownloader-2
 init: false
 tmpfs: true
