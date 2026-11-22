@@ -6,8 +6,9 @@ FROM ghcr.io/music-assistant/server:${BUILD_VERSION}
 COPY rootfs/ /
 
 # move providers
-RUN cd / && \
-    mv -rf /providers "$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"/music_assistant/
+RUN SITE="$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" && \
+    cp -a /providers/. $SITE/music_assistant/providers/ && \
+    rm -rf /providers
 
 # Labels
 LABEL \
