@@ -1,8 +1,8 @@
 ---
-name: JDownloader
+name: JDownloader 2
 version: "v26.09.1"
 slug: jdownloader
-description: Run JDownloader in Home Assistant.
+description: Run JDownloader 2 in Home Assistant.
   Image from Jocelyn Le Sage (jlesage).
 url: https://github.com/lamauny/hassio-addons
 arch:

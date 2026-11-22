@@ -1,15 +1,14 @@
- # Home Assistant Add-on: JDownloader
+# Home Assistant Add-on: JDownloader 2
 
 ![Project Stage][project-stage-shield]
-[![License][license-shield]](LICENSE)
-
 ![Supports amd64 Architecture][amd64-shield]
+![Supports aarch64 Architecture][aarch64-shield]
 
-[JDownloader](http://jdownloader.org/) Home Assistant add-on.
+[JDownloader 2](http://jdownloader.org/) Home Assistant add-on.
 
 ## About
 
-Runs [JDownloader](http://jdownloader.org/) in docker container with remote [MyJDownloader](https://my.jdownloader.org/index.html) interface.
+Runs [JDownloader 2](http://jdownloader.org/) with web+ingress interface + remote [MyJDownloader](https://my.jdownloader.org/index.html) interface.
 This addon is based on the [docker image](https://github.com/jlesage/docker-jdownloader-2) from jlesage
 
 ---
@@ -27,6 +26,6 @@ your valuable time every day!
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [license-shield]: https://img.shields.io/github/license/hassio-addons/addon-example.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
-[project-stage-shield]: https://img.shields.io/badge/project%20stage-dev-lightgray.svg
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-lightgray.svg
 [reddit]: https://reddit.com/r/homeassistant
 [repository]: https://github.com/lamauny/hassio-addons

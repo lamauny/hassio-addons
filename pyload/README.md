@@ -1,10 +1,6 @@
 # Home Assistant Add-on: pyLoad
 
 ![Project Stage][project-stage-shield]
-[![License][license-shield]](LICENSE)
-
-![Supports armhf Architecture][armhf-shield]
-![Supports armv7 Architecture][armv7-shield]
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 
@@ -12,7 +8,8 @@
 
 ## About
 
-Runs [pyLoad](http://pyLoad.net/) in docker container with WebUI.
+Runs [pyLoad](http://pyLoad.net/) with web+ingress interface.
+This addon is based on the docker [image](https://github.com/linuxserver/docker-pyload-ng) from linuxserver
 
 ---
 
