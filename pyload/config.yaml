@@ -4,6 +4,7 @@ version: 0.1-alpha21
 slug: pyload
 description: Run pyLoad in Home Assistant
 url: https://github.com/lamauny/hassio-addons
+image: ghcr.io/lamauny/pyload
 init: false
 webui: "http://[HOST]:[PORT:8000]"
 arch:

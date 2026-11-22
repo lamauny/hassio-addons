@@ -3,8 +3,7 @@
 # pyLoad Dockerfile
 #
 # Pull base image.
-ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM ghcr.io/hassio-addons/base:latest
 
 # set version label
 ARG BUILD_DATE

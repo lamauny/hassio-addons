@@ -44,7 +44,11 @@ jobs:
 
           # If the workflow file itself changed, rebuild all apps
           if [[ "${CHANGED_FILES}" =~ \.github/workflows/(builder|build-app)\.yaml ]]; then
-            changed_apps=(${APPS})
+            for app in ${APPS}; do
+              if [[ -f ${app}/Dockerfile ]]; then
+                changed_apps+=("${app}")
+              fi
+            done
           else
             for app in ${APPS}; do
               if [[ ! -f ${app}/Dockerfile ]]; then
