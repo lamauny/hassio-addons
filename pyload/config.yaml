@@ -1,5 +1,5 @@
 name: pyLoad
-version: "0.5.0"
+version: "0.5.0b3.dev102-ls264"
 slug: pyload-ng
 description: Run pyLoad-ng in Home Assistant
 url: https://pyload.net/
