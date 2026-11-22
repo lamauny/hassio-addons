@@ -2,15 +2,12 @@ ARG BUILD_ARCH
 ARG BUILD_VERSION=latest
 FROM ghcr.io/music-assistant/server:${BUILD_VERSION}
 
-RUN apt-get update && apt-get install patch && \
-    rm -rf /var/lib/apt/lists/*
-
 # Add files.
 COPY rootfs/ /
 
-# Patch !
+# move providers
 RUN cd / && \
-    for p in /patches/*.patch; do patch -p0 < "$p"; done
+    mv -rf /providers $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/music_assistant/
 
 # Labels
 LABEL \
