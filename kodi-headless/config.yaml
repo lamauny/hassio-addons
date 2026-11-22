@@ -10,7 +10,6 @@ arch:
 image: docker.io/matthuisman/kodi-headless
 init: false
 tmpfs: true
-stage: stable
 legacy: true
 host_network: true
 ingress: true
