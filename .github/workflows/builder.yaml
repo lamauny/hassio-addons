@@ -47,7 +47,7 @@ jobs:
             changed_apps=(${APPS})
           else
             for app in ${APPS}; do
-              if [[ ! -f ${app}/Dockerfile ]]; do
+              if [[ ! -f ${app}/Dockerfile ]]; then
                 continue
               fi
               for file in ${MONITORED_FILES}; do
