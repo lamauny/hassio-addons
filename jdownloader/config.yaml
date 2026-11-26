@@ -1,6 +1,6 @@
 ---
 name: JDownloader 2
-version: "v26.11.1"
+version: "v26.11.2"
 slug: jdownloader
 description: Run JDownloader 2 in Home Assistant.
   Image from Jocelyn Le Sage (jlesage).
