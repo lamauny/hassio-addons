@@ -55,7 +55,7 @@ JD_APPDEFS = "https://raw.githubusercontent.com/jlesage/docker-jdownloader-2/mas
 
 def cmd_jdownloader(path: str, max_versions: str = "20") -> None:
     data = yaml.safe_load(fetch(JD_APPDEFS))
-    entries = data.get("changelog") or []
+    entries = data.get("app").get("changelog") or []
     out = [HEADER]
     for entry in entries[: int(max_versions)]:
         version = str(entry.get("version", "")).strip()
